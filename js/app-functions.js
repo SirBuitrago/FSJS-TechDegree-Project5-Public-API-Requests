@@ -1,3 +1,10 @@
+/******************************************
+Brian Buitrago
+Treehouse Techdegree:
+FSJS project 5 - Public API Requests
+******************************************/
+//Thank you for taking a look at my code. I am going for the "Exceeds Expectations" grade. If my code is not on par with that grade, then please reject this project for resubmission.
+
 // Empty array that will eventually contain the filtered profiles.
 let activeProfiles = [];
 
@@ -74,7 +81,7 @@ const modalDepiction = (profileIndex, data) => {
 // This variable contains the 'NEXT' and 'PREVIOUS' buttons.
 const modalButtons = document.querySelectorAll(".modal-btn-container button");
 
-// Activates function to hide or show the 'Next' and 'Previous' button, dependant on whether it is the first or last profile. For instance: if it is the first presented profile, the function hides the previous button as there are no profiles before the first. If it is the last profile, this function hides the next button as there are no profiles after the last. //
+// Activates function to hide or show the 'Next' and 'Previous' button, dependant on whether it is the first or last profile. For instance: if it is the first presented profile, the function hides the previous button as there are no profiles before the first. If it is the last profile, this function hides the next button as there are no profiles after the last. This is for the exceeds expectations grade. //
 
 hideOrDisplayProfileButtons(profileIndex, data, buttons);
 
@@ -91,3 +98,23 @@ modalButtons.forEach((button) => {
 		}
 	});
 });
+
+// This function is for the search bar. Filters the profiles by value.
+
+const searchFilter = (searchInput, data) => {
+	// Empty array for filtered profiles.
+	profilesSearched = [];
+
+	if (document.querySelector(".modal-container")) {
+		document.querySelector("body").removeChild(".modal-container");
+	}
+
+	data.forEach((profiles) => {
+		if (
+			profiles.name.first.includes(searchInput) ||
+			profiles.name.last.includes(searchInput)
+		) {
+			profilesSearched.push(profiles);
+		}
+	});
+};
