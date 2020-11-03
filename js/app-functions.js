@@ -81,7 +81,7 @@ const modalDepiction = (profileIndex, data) => {
 // This variable contains the 'NEXT' and 'PREVIOUS' buttons.
 const modalButtons = document.querySelectorAll(".modal-btn-container button");
 
-// Activates function to hide or show the 'Next' and 'Previous' button, dependant on whether it is the first or last profile. For instance: if it is the first presented profile, the function hides the previous button as there are no profiles before the first. If it is the last profile, this function hides the next button as there are no profiles after the last. This is for the exceeds expectations grade. //
+// Activates the function below to hide or show the 'Next' and 'Previous' button, dependant on whether it is the first or last profile. For instance: if it is the first presented profile, the function hides the previous button as there are no profiles before the first. If it is the last profile, this function hides the next button as there are no profiles after the last. This is for the exceeds expectations grade. (found below line-130). //
 
 hideOrDisplayProfileButtons(profileIndex, data, buttons);
 
@@ -99,7 +99,7 @@ modalButtons.forEach((button) => {
 	});
 });
 
-// This function is for the search bar. Filters the profiles by value.
+// This function is for the Search Bar. Filters the profiles by value.
 
 const searchFilter = (searchInput, data) => {
 	// Empty array for filtered profiles.
@@ -117,4 +117,29 @@ const searchFilter = (searchInput, data) => {
 			profilesSearched.push(profiles);
 		}
 	});
+
+	// This calls on the remove or display function, for any potential error messages, wrapped within this function (found below line-146).
+	errorMessagePresence(searchFilter);
+
+	// This function generates the profile cards for the search function values.
+	profileGenerator(profilesSearched);
 };
+
+// This function controls whether or not the Next and Previous button are displayed.
+
+const hideOrDisplayProfileButtons = (currentProfile, data, buttons) => {
+	if (currentProfile === 0 && data.length === 1) {
+		buttons[0].style.visibility = "hidden";
+		buttons[1].style.visibility = "hidden";
+	} else if (currentProfile === 0) {
+		buttons[0].style.visibility = "hidden";
+		buttons[1].style.visibility = "visible";
+	} else if (currentProfile === data.length - 1) {
+		buttons[0].style.visibility = "visible";
+		buttons[1].style.visibility = "hidden";
+	}
+};
+
+// This function controls the presence or display of any error messages.
+
+const errorMessagePresence = () => {};
