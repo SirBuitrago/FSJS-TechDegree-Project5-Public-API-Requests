@@ -5,10 +5,18 @@ FSJS project 5 - Public API Requests
 ******************************************/
 //Thank you for taking a look at my code. I am going for the "Exceeds Expectations" grade. If my code is not on par with that grade, then please reject this project for resubmission.
 
+// =====================================
+//    GENERAL CODE & FUNCTIONS
+// =====================================
+
+// =======================================================
+//    PROFILE GENERATOR AND GALLERY CARD CREATOR FUNCTION
+// =======================================================
+
 // Empty array that will eventually contain the filtered profiles.
 let activeProfiles = [];
 
-// This function generates a profile card for each subsequent profile fetched object.
+// This function generates a profile or gallery card for each subsequent profile fetched object.
 const profileGenerator = (profileData) => {
 	const gallery = document.querySelector(".gallery");
 	// This serves as an empty div, so when gallery is called - we don't have multiple instances added all the time.
@@ -37,7 +45,12 @@ const profileGenerator = (profileData) => {
 	});
 };
 
-// This function creates modal window for each selected user object
+// =====================================
+//    MODAL WINDOW GENERATOR FUNCTION
+// =====================================
+
+// This function creates a modal window for each selected user object.
+
 const modalDepiction = (profileIndex, data) => {
 	let modalContainer = document.createElement("div");
 	modalContainer.className = "modal-container";
@@ -81,7 +94,7 @@ const modalDepiction = (profileIndex, data) => {
 // This variable contains the 'NEXT' and 'PREVIOUS' buttons.
 const modalButtons = document.querySelectorAll(".modal-btn-container button");
 
-// Activates the function below to hide or show the 'Next' and 'Previous' button, dependant on whether it is the first or last profile. For instance: if it is the first presented profile, the function hides the previous button as there are no profiles before the first. If it is the last profile, this function hides the next button as there are no profiles after the last. This is for the exceeds expectations grade. (found below line-130). //
+// This function controls whether or not the Next and Previous button are displayed. (found below line-130).
 
 hideOrDisplayProfileButtons(profileIndex, data, buttons);
 
@@ -98,6 +111,10 @@ modalButtons.forEach((button) => {
 		}
 	});
 });
+
+// =====================================
+//    SEARCH FUNCTION
+// =====================================
 
 // This function is for the Search Bar. Filters the profiles by value.
 
@@ -125,7 +142,11 @@ const searchFilter = (searchInput, data) => {
 	profileGenerator(profilesSearched);
 };
 
-// This function controls whether or not the Next and Previous button are displayed.
+// =====================================
+//    HIDE OR DISPLAY BUTTONS FUNCTION
+// =====================================
+
+// This functions either hides or shows the 'Next' and 'Previous' button, dependant on whether it is the first or last profile. For instance: if it is the first presented profile, the function hides the previous button as there are no profiles before the first. If it is the last profile, this function hides the next button as there are no profiles after the last. This is for the exceeds expectations grade. //
 
 const hideOrDisplayProfileButtons = (currentProfile, data, buttons) => {
 	if (currentProfile === 0 && data.length === 1) {
@@ -140,6 +161,25 @@ const hideOrDisplayProfileButtons = (currentProfile, data, buttons) => {
 	}
 };
 
-// This function controls the presence or display of any error messages.
+// =====================================
+//    ERROR MESSAGE DISPLAY FUNCTION
+// =====================================
 
-const errorMessagePresence = () => {};
+// This function controls the presence or display of the error messages. By creating and appending the error message dynamically if their is one (an error). Or hiding the error message if their isn't an "error".
+
+const errorMessagePresence = (results) => {
+	if (results.length === 0) {
+		if (document.querySelector(".errorMessage") === null) {
+			let noProfiles = document.createElement("p");
+			noProfiles.className = errorMessage;
+			noProfiles.textContext =
+				"Sorry. That search produced no results. Give it another go.";
+			document.querySelector("body").insertBefore(noProfiles, gallery);
+		}
+	} else {
+		if (document.querySelector(".errorMessage") !== null)
+			document.querySelector(".errorMessage").style.display = "none";
+	}
+};
+
+//
