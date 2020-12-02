@@ -23,24 +23,24 @@ const profileGenerator = (profileData) => {
 	gallery.innerHTML = "";
 
 	// This block iterates over the profile data and creates the profile card for each example user object.
-	profileData.forEach((index) => {
-		gallery.innerHTML += `<div class="card" id="${index}">
+	for (let i = 0; i < profileData.length; i++) {
+		gallery.innerHTML += `<div class="card" id="${i}">
             <div class="card-img-container">
-                <img class="card-img" src="${profileData[index].picture.thumbnail}" alt="profile picture">
+                <img class="card-img" src="${profileData[i].picture.thumbnail}" alt="profile picture">
             </div>
             <div class="card-info-container">
-                <h3 id="name" class="card-name cap">${profileData[index].name.first} ${profileData[index].name.last}</h3>
-                <p class="card-text">${profileData[index].email}</p>
-                <p class="card-text cap">${profileData[index].location.city}, ${profileData[index].location.state}</p>
+                <h3 id="name" class="card-name cap">${profileData[i].name.first} ${profileData[i].name.last}</h3>
+                <p class="card-text">${profileData[i].email}</p>
+                <p class="card-text cap">${profileData[i].location.city}, ${profileData[i].location.state}</p>
             </div>
         </div>`;
-	});
+	}
 
 	// Click event listener is added for each profile card, and presents the corresponding modal window for each profile.
-	let profiles = document.querySelector(".card");
+	let profiles = document.querySelectorAll(".card");
 	profiles.forEach((profile) => {
 		profile.addEventListener("click", (e) => {
-			modalDepiction(parseInt(e.currenttarget.id), profileData);
+			modalDepiction(parseInt(e.currentTarget.id), profileData);
 		});
 	});
 };
@@ -54,7 +54,7 @@ const profileGenerator = (profileData) => {
 const modalDepiction = (profileIndex, data) => {
 	let modalContainer = document.createElement("div");
 	modalContainer.className = "modal-container";
-	modalContainer.style.backgroundColor = generateRandomColor();
+	//modalContainer.style.backgroundColor = generateRandomColor();
 	modalContainer.innerHTML = `<div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
@@ -87,30 +87,32 @@ const modalDepiction = (profileIndex, data) => {
 	// Removes document window when the X button on it is clicked.
 	let modalCloseBtn = document.querySelector(".modal-close-btn");
 	modalCloseBtn.addEventListener("click", () => {
-		document.querySelector("body").removeChild(modalCloseBtn);
+		document
+			.querySelector("body")
+			.removeChild(document.querySelector(".modal-container"));
+	});
+
+	// This variable contains the 'NEXT' and 'PREVIOUS' buttons.
+	const modalButtons = document.querySelectorAll(".modal-btn-container button");
+
+	// This function controls whether or not the Next and Previous button are displayed. (found below line-148).
+
+	hideOrDisplayProfileButtons(profileIndex, data, buttons);
+
+	// Adds a event listener to the previous and next button within the modal window.
+	modalButtons.forEach((button) => {
+		button.addEventListener("click", (e) => {
+			hideOrDisplayProfileButtons(profileIndex, data, buttons);
+
+			document.querySelector("body").removeChild(modalContainer);
+			if (e.target.textContent === "Next") {
+				modalDepiction(profileIndex + 1, data);
+			} else if (e.target.textContent === "Prev") {
+				modalDepiction(profileIndex - 1, data);
+			}
+		});
 	});
 };
-
-// This variable contains the 'NEXT' and 'PREVIOUS' buttons.
-const modalButtons = document.querySelectorAll(".modal-btn-container button");
-
-// This function controls whether or not the Next and Previous button are displayed. (found below line-130).
-
-hideOrDisplayProfileButtons(profileIndex, data, buttons);
-
-// Adds a event listener to the previous and next button within the modal window.
-modalButtons.forEach((button) => {
-	button.addEventListener("click", (e) => {
-		hideOrDisplayProfileButtons(profileIndex, data, buttons);
-
-		document.querySelector("body").removeChild(modalContainer);
-		if (e.target.textContent === "Next") {
-			modalDepiction(profileIndex + 1, data);
-		} else if (e.target.textContent === "Prev") {
-			modalDepiction(profileIndex - 1, data);
-		}
-	});
-});
 
 // =====================================
 //    SEARCH FUNCTION
@@ -120,7 +122,7 @@ modalButtons.forEach((button) => {
 
 const searchFilter = (searchInput, data) => {
 	// Empty array for filtered profiles.
-	profilesSearched = [];
+	activeProfiles = [];
 
 	if (document.querySelector(".modal-container")) {
 		document.querySelector("body").removeChild(".modal-container");
@@ -136,10 +138,10 @@ const searchFilter = (searchInput, data) => {
 	});
 
 	// This calls on the remove or display function, for any potential error messages, wrapped within this function (found below line-146).
-	errorMessagePresence(searchFilter);
+	errorMessagePresence(activeProfiles);
 
 	// This function generates the profile cards for the search function values.
-	profileGenerator(profilesSearched);
+	profileGenerator(activeProfiles);
 };
 
 // =====================================
@@ -182,4 +184,8 @@ const errorMessagePresence = (results) => {
 	}
 };
 
-//
+// =====================================
+//    WINDOW COLOR GENERATOR
+// =====================================
+
+// Random Color generator for modal window

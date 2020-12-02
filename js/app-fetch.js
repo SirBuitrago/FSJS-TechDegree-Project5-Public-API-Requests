@@ -9,11 +9,34 @@ FSJS project 5 - Public API Requests
 //    FETCH REQUEST
 // =====================================
 
-// This is a fetch request to fetch random user profiles including address, name, birthday, email and phone number.
+// This is a fetch request to fetch 12 random user profiles including address, name, birthday, email and phone number.
 
-fetch("https://randomuser.me/api/?results=12&nat=us")
+fetch(
+	"https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=us"
+)
 	.then((data) => data.json())
 	.then((data) => {
 		// Generates a profile card for each resulting profile pulled from the site.
 		profileGenerator(data.results);
+
+		// Submits event listener
+		document.querySelector("form").addEventListener("submit", (e) => {
+			e.preventDefault();
+			searchFilter(
+				e.target.firstElementChild.value.toLowerCase(),
+				data.results
+			);
+		});
 	});
+
+//.catch(error => console.log('Ran into an issue, error occured.', error))
+
+// Here I dynamically apply the search bar to the page.
+
+document.querySelector(
+	".search-container"
+).innerHTML = `<form action="#" method="get">
+        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+        <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
+    </form>`;
+//
