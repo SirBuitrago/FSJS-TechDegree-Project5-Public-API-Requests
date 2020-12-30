@@ -16,7 +16,7 @@ fetch(
 )
 	.then((data) => data.json())
 	.then((data) => {
-		// Generates a profile card for each resulting profile pulled from the site.
+		// Generates a profile card for each resulting profile pulled from the site data.
 		profileGenerator(data.results);
 
 		// Submits event listener
@@ -29,14 +29,18 @@ fetch(
 		});
 	});
 
-//.catch(error => console.log('Ran into an issue, error occured.', error))
+//.catch((error) => console.log("Ran into an issue, error occured", error));
 
-// Here I dynamically apply the search bar to the page.
+// =====================================
+//    SEARCH BAR
+// =====================================
+
+// Here I dynamically add the search bar to the page.
 
 document.querySelector(
 	".search-container"
 ).innerHTML = `<form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
-        <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
     </form>`;
 //

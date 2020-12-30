@@ -9,6 +9,23 @@ FSJS project 5 - Public API Requests
 //    GENERAL CODE & FUNCTIONS
 // =====================================
 
+// =====================================
+//    WINDOW COLOR RANDOMIZER [for exceeds grade]
+// =====================================
+
+// Random Color generator for modal windows as you look through them.
+
+const colorRandomizer = () => {
+	let numbers = [];
+
+	while (numbers.length < 3) {
+		numbers.push(Math.floor(Math.random() * (255 - 0 + 1) + 0));
+	}
+
+	let newColor = `rgba(${numbers[0]},${numbers[1]},${numbers[2]},0.5)`;
+	return newColor;
+};
+
 // =======================================================
 //    PROFILE GENERATOR AND GALLERY CARD CREATOR FUNCTION
 // =======================================================
@@ -53,8 +70,9 @@ const profileGenerator = (profileData) => {
 
 const modalDepiction = (profileIndex, data) => {
 	let modalContainer = document.createElement("div");
+
 	modalContainer.className = "modal-container";
-	//modalContainer.style.backgroundColor = generateRandomColor();
+
 	modalContainer.innerHTML = `<div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
@@ -80,9 +98,11 @@ const modalDepiction = (profileIndex, data) => {
         <div class="modal-btn-container">
             <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
             <button type="button" id="modal-next" class="modal-next btn">Next</button>
-        </div>`;
+		</div>`;
 
 	document.querySelector("body").appendChild(modalContainer);
+	let modalInfo = document.querySelector(".modal-info-container");
+	modalInfo.style.backgroundColor = colorRandomizer();
 
 	// Removes document window when the X button on it is clicked.
 	let modalCloseBtn = document.querySelector(".modal-close-btn");
@@ -95,14 +115,14 @@ const modalDepiction = (profileIndex, data) => {
 	// This variable contains the 'NEXT' and 'PREVIOUS' buttons.
 	const modalButtons = document.querySelectorAll(".modal-btn-container button");
 
-	// This function controls whether or not the Next and Previous button are displayed. (found below line-148).
+	// This function controls whether or not the Next and Previous buttons are displayed. (found below line-148).
 
-	hideOrDisplayProfileButtons(profileIndex, data, buttons);
+	hideOrDisplayProfileButtons(profileIndex, data, modalButtons);
 
 	// Adds a event listener to the previous and next button within the modal window.
-	modalButtons.forEach((button) => {
-		button.addEventListener("click", (e) => {
-			hideOrDisplayProfileButtons(profileIndex, data, buttons);
+	modalButtons.forEach((buttons) => {
+		buttons.addEventListener("click", (e) => {
+			hideOrDisplayProfileButtons(profileIndex, data, modalButtons);
 
 			document.querySelector("body").removeChild(modalContainer);
 			if (e.target.textContent === "Next") {
@@ -133,11 +153,11 @@ const searchFilter = (searchInput, data) => {
 			profiles.name.first.includes(searchInput) ||
 			profiles.name.last.includes(searchInput)
 		) {
-			profilesSearched.push(profiles);
+			activeProfiles.push(profiles);
 		}
 	});
 
-	// This calls on the remove or display function, for any potential error messages, wrapped within this function (found below line-146).
+	// This calls on the remove or display function, for any potential error messages, wrapped within this function.
 	errorMessagePresence(activeProfiles);
 
 	// This function generates the profile cards for the search function values.
@@ -173,19 +193,14 @@ const errorMessagePresence = (results) => {
 	if (results.length === 0) {
 		if (document.querySelector(".errorMessage") === null) {
 			let noProfiles = document.createElement("p");
-			noProfiles.className = errorMessage;
+			noProfiles.className = "errorMessage";
 			noProfiles.textContext =
-				"Sorry. That search produced no results. Give it another go.";
+				"Sorry. That search produced no results. Give it another go?";
 			document.querySelector("body").insertBefore(noProfiles, gallery);
 		}
 	} else {
-		if (document.querySelector(".errorMessage") !== null)
+		if (document.querySelector(".errorMessage") !== null) {
 			document.querySelector(".errorMessage").style.display = "none";
+		}
 	}
 };
-
-// =====================================
-//    WINDOW COLOR GENERATOR
-// =====================================
-
-// Random Color generator for modal window
