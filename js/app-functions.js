@@ -144,6 +144,7 @@ const searchFilter = (searchInput, data) => {
 	// Empty array for filtered profiles.
 	activeProfiles = [];
 
+	// Remove modal window if one already exists
 	if (document.querySelector(".modal-container")) {
 		document.querySelector("body").removeChild(".modal-container");
 	}

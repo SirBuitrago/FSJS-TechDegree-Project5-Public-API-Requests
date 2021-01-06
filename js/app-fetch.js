@@ -27,7 +27,7 @@ fetch(
 			);
 		});
 	})
-	.catch((error) => console.log("Ran into an issue", error));
+	.catch((error) => console.log("Ran into an issue: ", error));
 
 // =====================================
 //    SEARCH BAR
