@@ -150,10 +150,9 @@ const searchFilter = (searchInput, data) => {
 	}
 
 	data.forEach((profiles) => {
-		if (
-			profiles.name.first.includes(searchInput) ||
-			profiles.name.last.includes(searchInput)
-		) {
+		const firstName = profiles.name.first.toLowerCase();
+		const lastName = profiles.name.last.toLowerCase();
+		if (firstName.includes(searchInput) || lastName.includes(searchInput)) {
 			activeProfiles.push(profiles);
 		}
 	});
