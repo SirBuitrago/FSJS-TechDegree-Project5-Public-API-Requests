@@ -10,16 +10,15 @@ FSJS project 5 - Public API Requests
 // =====================================
 
 // This is a fetch request to fetch 12 random user profiles including address, name, birthday, email and phone number.
-
 fetch(
-	"https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=us"
+	"https://randomuser.me/api/?results=12&inc=name,location,email,picture,cell,dob&nat=us&"
 )
 	.then((data) => data.json())
 	.then((data) => {
 		// Generates a profile card for each resulting profile pulled from the site data.
 		profileGenerator(data.results);
 
-		// Submits event listener
+		// Submit event listener on form to filter profiles.
 		document.querySelector("form").addEventListener("submit", (e) => {
 			e.preventDefault();
 			searchFilter(
@@ -27,9 +26,8 @@ fetch(
 				data.results
 			);
 		});
-	});
-
-//.catch((error) => console.log("Ran into an issue, error occured", error));
+	})
+	.catch((error) => console.log("Ran into an issue", error));
 
 // =====================================
 //    SEARCH BAR
@@ -42,5 +40,4 @@ document.querySelector(
 ).innerHTML = `<form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-    </form>`;
-//
+	</form>`;

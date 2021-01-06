@@ -72,7 +72,7 @@ const modalDepiction = (profileIndex, data) => {
 	let modalContainer = document.createElement("div");
 
 	modalContainer.className = "modal-container";
-
+	//modalContainer.style.backgroundColor = colorRandomizer();
 	modalContainer.innerHTML = `<div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
