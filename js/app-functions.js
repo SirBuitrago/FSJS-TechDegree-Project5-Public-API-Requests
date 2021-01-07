@@ -87,7 +87,9 @@ const modalDepiction = (profileIndex, data) => {
 								}</p>
                 <hr>
                 <p class="modal-text">${data[profileIndex].cell}</p>
-                <p class="modal-text">${data[profileIndex].location.street}, ${
+                <p class="modal-text">${
+									data[profileIndex].location.street.number
+								} ${data[profileIndex].location.street.name}, ${
 		data[profileIndex].location.state
 	}, ${data[profileIndex].location.postcode}</p>
                 <p class="modal-text">Birthday: ${data[
