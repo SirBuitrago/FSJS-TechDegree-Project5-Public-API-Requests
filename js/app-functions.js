@@ -70,7 +70,6 @@ const profileGenerator = (profileData) => {
 
 const modalDepiction = (profileIndex, data) => {
 	let modalContainer = document.createElement("div");
-
 	modalContainer.className = "modal-container";
 	//modalContainer.style.backgroundColor = colorRandomizer();
 	modalContainer.innerHTML = `<div class="modal">
@@ -101,6 +100,9 @@ const modalDepiction = (profileIndex, data) => {
 		</div>`;
 
 	document.querySelector("body").appendChild(modalContainer);
+	console.log(modalContainer);
+
+	// Adds a random color to the modal window
 	let modalInfo = document.querySelector(".modal-info-container");
 	modalInfo.style.backgroundColor = colorRandomizer();
 
@@ -115,7 +117,7 @@ const modalDepiction = (profileIndex, data) => {
 	// This variable contains the 'NEXT' and 'PREVIOUS' buttons.
 	const modalButtons = document.querySelectorAll(".modal-btn-container button");
 
-	// This function controls whether or not the Next and Previous buttons are displayed. (found below line-148).
+	// This function controls whether or not the Next and Previous buttons are displayed.
 
 	hideOrDisplayProfileButtons(profileIndex, data, modalButtons);
 
