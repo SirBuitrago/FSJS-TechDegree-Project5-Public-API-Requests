@@ -191,10 +191,10 @@ const hideOrDisplayProfileButtons = (currentProfile, data, buttons) => {
 
 const errorMessagePresence = (results) => {
 	if (results.length === 0) {
-		if (document.querySelector(".errorMessage") === null) {
+		if (document.querySelector(".errorMessage") == null) {
 			let noProfiles = document.createElement("p");
 			noProfiles.className = "errorMessage";
-			noProfiles.textContext =
+			noProfiles.innerText =
 				"Sorry. That search produced no results. Give it another go?";
 			document.querySelector("body").insertBefore(noProfiles, gallery);
 		}

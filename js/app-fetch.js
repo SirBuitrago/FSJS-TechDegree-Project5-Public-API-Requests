@@ -19,7 +19,8 @@ fetch(
 		profileGenerator(data.results);
 
 		// Submit event listener on form to filter profiles.
-		document.querySelector("form").addEventListener("submit", (e) => {
+		const form = document.querySelector("form");
+		form.addEventListener("submit", (e) => {
 			e.preventDefault();
 			searchFilter(
 				e.target.firstElementChild.value.toLowerCase(),
