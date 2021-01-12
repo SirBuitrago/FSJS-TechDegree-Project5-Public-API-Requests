@@ -69,32 +69,32 @@ const profileGenerator = (profileData) => {
 // This function creates a modal window for each selected user object.
 
 const modalDepiction = (profileIndex, data) => {
+	//Variables for the birthday substring data, to modify the information placement as desired.
+	let days = data[profileIndex].dob.date.substring(8, 10);
+	let months = data[profileIndex].dob.date.substring(5, 7);
+	let years = data[profileIndex].dob.date.substring(0, 4);
+	//Variables for the cellphone substring data, to modify the information placement as desired.
+	let areaCode = data[profileIndex].cell.substring(1, 4);
+	let threeDigits = data[profileIndex].cell.substring(6, 9);
+	let fourDigits = data[profileIndex].cell.substring(10, 15);
+
+	//Variable for created div element
 	let modalContainer = document.createElement("div");
+
 	modalContainer.className = "modal-container";
 	//modalContainer.style.backgroundColor = colorRandomizer();
 	modalContainer.innerHTML = `<div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="${
-									data[profileIndex].picture.thumbnail
-								}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${
-									data[profileIndex].name.first
-								} ${data[profileIndex].name.last}</h3>
+                <img class="modal-img" src="${data[profileIndex].picture.thumbnail}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${data[profileIndex].name.first} ${data[profileIndex].name.last}</h3>
                 <p class="modal-text">${data[profileIndex].email}</p>
-                <p class="modal-text cap">${
-									data[profileIndex].location.city
-								}</p>
+                <p class="modal-text cap">${data[profileIndex].location.city}</p>
                 <hr>
-                <p class="modal-text">${data[profileIndex].cell}</p>
-                <p class="modal-text">${
-									data[profileIndex].location.street.number
-								} ${data[profileIndex].location.street.name}, ${
-		data[profileIndex].location.state
-	}, ${data[profileIndex].location.postcode}</p>
-                <p class="modal-text">Birthday: ${data[
-									profileIndex
-								].dob.date.substring(0, 10)}</p>
+                <p class="modal-text">(${areaCode}) ${threeDigits}-${fourDigits}</p>
+                <p class="modal-text">${data[profileIndex].location.street.number} ${data[profileIndex].location.street.name}, ${data[profileIndex].location.state}, ${data[profileIndex].location.postcode}</p>
+                <p class="modal-text"> Birthday: ${months}/${days}/${years}
+									</p>
         </div>
         <div class="modal-btn-container">
             <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
@@ -102,7 +102,6 @@ const modalDepiction = (profileIndex, data) => {
 		</div>`;
 
 	document.querySelector("body").appendChild(modalContainer);
-	console.log(modalContainer);
 
 	// Adds a random color to the modal window
 	let modalInfo = document.querySelector(".modal-info-container");

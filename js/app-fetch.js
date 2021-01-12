@@ -35,10 +35,9 @@ fetch(
 // =====================================
 
 // Here I dynamically add the search bar to the page.
-
 document.querySelector(
 	".search-container"
 ).innerHTML = `<form action="#" method="get">
-        <input type="search" id="search-input" class="search-input" placeholder="Search...">
-        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+		<input type="search" id="search-input" class="search-input" placeholder="Search...">
+		<input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit"></input>
 	</form>`;
