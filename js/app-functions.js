@@ -43,7 +43,7 @@ const profileGenerator = (profileData) => {
 	for (let i = 0; i < profileData.length; i++) {
 		gallery.innerHTML += `<div class="card" id="${i}">
             <div class="card-img-container">
-                <img class="card-img" src="${profileData[i].picture.thumbnail}" alt="profile picture">
+                <img class="card-img" src="${profileData[i].picture.large}" alt="profile picture">
             </div>
             <div class="card-info-container">
                 <h3 id="name" class="card-name cap">${profileData[i].name.first} ${profileData[i].name.last}</h3>
@@ -86,7 +86,7 @@ const modalDepiction = (profileIndex, data) => {
 	modalContainer.innerHTML = `<div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="${data[profileIndex].picture.thumbnail}" alt="profile picture">
+                <img class="modal-img" src="${data[profileIndex].picture.large}" alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data[profileIndex].name.first} ${data[profileIndex].name.last}</h3>
                 <p class="modal-text">${data[profileIndex].email}</p>
                 <p class="modal-text cap">${data[profileIndex].location.city}</p>
@@ -101,6 +101,7 @@ const modalDepiction = (profileIndex, data) => {
             <button type="button" id="modal-next" class="modal-next btn">Next</button>
 		</div>`;
 
+	//Appends the modal container to the body of the page.
 	document.querySelector("body").appendChild(modalContainer);
 
 	// Adds a random color to the modal window
